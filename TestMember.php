@@ -284,7 +284,7 @@
 	$m = new Member();
 	$m->SetSwimSAId("123456");
 	$m->SetSurname("Cooke");
-	$m->SetFamily("Cooke");
+	//$m->SetFamily("Cooke");
 	$m->SetGivenNames("Charlotte");
 	$m->SetAddress1("11 Ferguson Court");
 	$m->SetAddress2("11 Ferguson Court");
@@ -305,11 +305,12 @@
 	$m->Save();
 	$m->LoadMemberBySwimSAId("123456");
 	echo "<br>Member Created ID (should be id):" . $m->GetId();
-	$m->Delete();
-	
+		
 	echo "<br>+++++++++++++++++++++++++++++++++++++++++++";
 	echo "<br>+Age Calcs";
 	echo "<br>+++++++++++++++++++++++++++++++++++++++++++";
-	echo "Date of Birth: " . $m->GetDateOfBirth()->format("d-m-Y");
-	echo "Age: " . $m->GetAge();
+	echo "<br>Date of Birth: " . $m->GetDateOfBirth()->format("d-m-Y");
+	echo "<br>Age: " . $m->GetAge();
+	
+	$m->Delete();
 ?>
