@@ -151,6 +151,10 @@
 					echo "<td>Phone</td>";
 					echo "<td><input id='newPhone' type='text' name='newPhone' value=''></td>";
 				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Mobile Phone</td>";
+					echo "<td><input id='newMobilePhone' type='text' name='newMobilePhone' value=''></td>";
+				echo "</tr>";
 				
 				echo "</table>";
 			}
