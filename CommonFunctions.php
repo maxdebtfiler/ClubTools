@@ -92,6 +92,18 @@
 		
 		$_SESSION['accounts'] = $accounts;
 		
+		// Load Membership Types
+		$membershipTypes = array();
+		$sql = "SELECT id, name FROM membership_types";
+		$membershipTypesResult = mysqli_query($_SESSION['databaseConnection'], $sql);
+		
+		while( $row = mysqli_fetch_array($membershipTypesResult))
+		{
+			$membershipTypes[$row['id']] = $row['name'];
+		}
+		
+		$_SESSION['membershipTypes'] = $membershipTypes;
+		
 		// Load family list
 		$familyList = array();
 		$sql = "SELECT distinct family FROM members WHERE expiry is null OR expiry > curdate() ORDER BY family ASC";
@@ -246,6 +258,18 @@
 		echo "</select></td>";
 	}
 	
+	function writeMembershipTypeSelector($fieldName, $selectedItem)
+	{
+		echo "<td width=220> <select name=\"". $fieldName . "\" >";
+		
+		foreach($_SESSION['membershipTypes'] as $id=>$name)
+		{
+			echo "<option ". isSelected( $id, $selectedItem) . "value=\"" . $id . "\">" . $name . "</option>";
+		}
+		
+		echo "</select></td>";
+	}
+	
 	function writeFamilySelector($fieldName, $defaultValue)
 	{
 		echo "<td width=220> <select name=\"". $fieldName . "\" >";
@@ -323,6 +347,23 @@
 		echo "<input type='radio' name='" . $fieldName . "' value='F' " . isChecked("F", $selectedItem) . "> Female";
 		echo "<input type='radio' name='" . $fieldName . "' value='O' " . isChecked("O", $selectedItem) . "> Other";
 		echo "</td>";
+	}
+	
+	function writePaymentNominationSelector($fieldName, $selectedNomination)
+	{
+		if ($selectedNomination == null)
+		{
+			$selectedNomination = "";
+		}
+		
+		echo "<td><select name=\"" . $fieldName . "\">";
+		echo "<option></option>";
+		echo "<option " . isSelected("A", $selectedNomination) . "value='A'>Annual";
+		echo "<option " . isSelected("Q", $selectedNomination) . "value='Q'>Quarterly";
+		echo "<option " . isSelected("M", $selectedNomination) . "value='M'>Monthly";
+		echo "<option " . isSelected("O", $selectedNomination) . "value='O'>Maximum Once Per Week";
+		
+		echo "</select>";
 	}
 	
 	function writeDateSelector($fieldName, $selectedDate)

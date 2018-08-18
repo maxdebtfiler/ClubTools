@@ -84,6 +84,51 @@
 				echo "<input type=\"submit\" name=\"cancel\" value=\"Cancel\">";
 				echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
 			}
+			elseif ($_POST['save'])
+			{
+				$member = new Member();
+				$member->SetId($_POST['row']);
+				$member->SetSwimSAId($_POST['newSwimSAId']);
+				$member->SetSurname($_POST['newSurname']);
+				$member->SetFamily($_POST['newFamily']);
+				$member->SetGivenNames($_POST['newGivenNames']);
+				$member->SetAddress1($_POST['newAddress1']);
+				$member->SetAddress2($_POST['newAddress2']);
+				$member->SetSuburb($_POST['newSuburb']);
+				$member->SetState($_POST['newState']);
+				$member->SetPostcode($_POST['newPostcode']);
+				$member->SetGender($_POST['newGender']);
+				$member->SetDateOfBirth($_POST['newDateOfBirth']);
+				$member->SetJoinDate($_POST['newJoinDate']);
+				$member->SetPhone($_POST['newPhone']);
+				$member->SetMobilePhone($_POST['newMobilePhone']);
+				$member->SetEmail($_POST['newEmail']);
+				$member->SetEmergencyContact($_POST['newEmergencyContact']);
+				$member->SetEmergencyContactNumber($_POST['newEmergencyContactNumber']);
+				$member->SetMeetManagerId($_POST['newMeetManagerId']);
+				$member->SetMemberType($_POST['newMembershipType']);
+				$member->SetPaymentNomination($_POST['newPaymentNomination']);
+				$member->SetCreated($_POST['newCreated']);
+				$member->SetActive($_POST['newActive']);
+				$member->SetExpiry($_POST['newExpiry']);
+				
+				if ($member->Save())
+				{
+					echo "Save successful.";
+					displayActiveMembersList();
+					echo "<input type=\"submit\" name=\"show_details\" value=\"Show Details\">";
+					echo "<input type=\"submit\" name=\"show_all\" value=\"Show All\">";
+					echo "<input type=\"submit\" name=\"add\" value=\"Add\">";
+					echo "<input type=\"submit\" name=\"edit\" value=\"Edit\">";
+					echo "<input type=\"submit\" name=\"delete\" value=\"Delete\">";
+				}
+				else
+				{
+					//displayEditForm($member);
+					echo "<input type=\"submit\" name=\"cancel\" value=\"Cancel\">";
+					echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
+				}
+			}
 			else
 			{
 				displayActiveMembersList();
@@ -154,6 +199,42 @@
 				echo "<tr>";
 					echo "<td>Mobile Phone</td>";
 					echo "<td><input id='newMobilePhone' type='text' name='newMobilePhone' value=''></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Email</td>";
+					echo "<td><input id='newEmail' type='text' name='newEmail' value=''></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Emergency Contact Name</td>";
+					echo "<td><input id='newEmergencyContact' type='text' name='newEmergencyContact' value=''></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Emergency Contact Number</td>";
+					echo "<td><input id='newEmergencyContactNumber' type='text' name='newEmergencyContactNumber' value=''></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Meet Manager ID</td>";
+					echo "<td><input id='newMeetManagerId' type='text' name='newMeetManagerId' value=''></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Membership Type</td>";
+					writeMembershipTypeSelector("newMembershipType", "1");
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Payment Nomination</td>";
+					writePaymentNominationSelector("newPaymentNomination", "A");
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Created</td>";
+					echo "<td><input id='newCreated' name='newCreated' class='datepicker'></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Active</td>";
+					echo "<td><input id='newActive' name='newActive' class='datepicker'></td>";
+				echo "</tr>";
+				echo "<tr>";
+					echo "<td>Expiry</td>";
+					echo "<td><input id='newExpiry' name='newExpiry' class='datepicker'></td>";
 				echo "</tr>";
 				
 				echo "</table>";
